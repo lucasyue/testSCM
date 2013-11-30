@@ -2,9 +2,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>bsdn.cn</groupId>
+	<groupId>cn.bsdn</groupId>
 	<artifactId>testSCM</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>${project.release.version}</version>
 	<packaging>jar</packaging>
 
 	<name>testSCM</name>
@@ -12,16 +12,38 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.release.version>0.0.1-SNAPSHOT</project.release.version>
 	</properties>
+	<!-- deploy config begin -->
+	<profiles>
+		<profile>
+			<id>product</id>
+			<properties>
+				<project.release.version>0.0.1</project.release.version>
+			</properties>
+		</profile>
+	</profiles>
+	<distributionManagement>
+		<repository>
+			<id>local-maven-release</id>
+			<url>http://localhost:8081/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>local-maven-snapshot</id>
+			<url>http://localhost:8081/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+	<!-- deploy config end -->
+
 
 	<dependencies>
-    <dependency>
-    	<groupId>cn.bsdn</groupId>
-    	<artifactId>svn</artifactId>
-    	<version>1.0</version>
-    </dependency>
-  </dependencies>
- <build>
+		<dependency>
+			<groupId>cn.bsdn</groupId>
+			<artifactId>svn</artifactId>
+			<version>1.0</version>
+		</dependency>
+	</dependencies>
+	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -32,11 +54,11 @@
 			</plugin>
 		</plugins>
 	</build>
-  <scm>
+	<scm>
 		<url>scm:git:https://github.com/lucasyue/wdemo.git</url>
 		<connection>scm:git:https://github.com/lucasyue/wdemo.git</connection>
 	</scm>
-  	<repositories>
+	<repositories>
 		<repository>
 			<id>local-maven</id>
 			<url>http://localhost:8081/nexus/content/repositories/releases/</url>
